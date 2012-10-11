@@ -4,10 +4,10 @@ from suds.client import Client
 
 defaultUploadOptions = {"title":"Default Title", "desc":"Default Description",
                         "view_state":2, "tags":"model,auto-upload", 
-                        "has_color":0, "scale":0.001, "markup":3.50}
+                        "has_color":0, "scale":1, "markup":0}
 
 
-class ShapeWays(object):
+class Shapeways(object):
     def __init__(self, username, password, appID = "ShapeWays Python API"):
         self.appID = appID
         # Retrieve the WSDL schema
@@ -28,6 +28,8 @@ class ShapeWays(object):
         # Make a current "SWModel" object
         current_model = defaultUploadOptions.copy()
         current_model.update(options)
+        current_model.update({"file":encodedModel,"filename":filename, "file_uri":filename, "modeltype":modeltype})
+
 
         print "Uploading model", filepath
         print self.client.service.submitModel(session_id=self.sessionid, application_id = self.appID, model=current_model)
@@ -37,7 +39,6 @@ class ShapeWays(object):
         return self.client.service.getPrinters(session_id=self.sessionid, application_id = self.appID)
 
 if __name__ == "__main__":
-    sw = ShapeWays("meawoppl", "passme")
-    # cli = sw.uploadModel("sphere.stl")
-
-    print sw.getPrinters()
+    sw = Shapeways("meawoppl", "passme")
+    sw.uploadModel("sphere.stl")
+    # print sw.getPrinters()
