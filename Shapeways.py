@@ -1,4 +1,4 @@
-import os,  base64
+import os,  base64, getpass
 from suds.client import Client
 
 
@@ -39,6 +39,8 @@ class Shapeways(object):
         return self.client.service.getPrinters(session_id=self.sessionid, application_id = self.appID)
 
 if __name__ == "__main__":
-    sw = Shapeways("meawoppl", "passme")
+    un = raw_input("Shapeways Username:")
+    pw = getpass.getpass("Shapeways Password:")
+    sw = Shapeways(un, pw)
     sw.uploadModel("sphere.stl")
-    # print sw.getPrinters()
+    print sw.getPrinters()
