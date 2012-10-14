@@ -2,12 +2,9 @@ import os,  base64, getpass
 from suds.client import Client
 
 
-defaultUploadOptions = {"title":"Default Title", "desc":"Default Description",
-                        "view_state":2, "tags":"model,auto-upload", 
-                        "has_color":0, "scale":1, "markup":0}
-
-
-
+defaultModelOptions = {"title":"Default Title", "desc":"Default Description",
+                       "view_state":2, "tags":"model,auto-upload", 
+                       "has_color":0, "scale":1, "markup":0}
 
 class Shapeways(object):
     def __init__(self, username, password, appID = "ShapeWays Python API"):
@@ -38,7 +35,7 @@ class Shapeways(object):
         encodedModel = base64.b64encode( open(filepath).read() )
 
         # Make a current "SWModel" object
-        current_model = defaultUploadOptions.copy()
+        current_model = defaultModelOptions.copy()
         current_model.update(options)
         current_model.update({"file":encodedModel,"filename":filename, "file_uri":filename, "modeltype":modeltype})
 
